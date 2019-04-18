@@ -23,6 +23,10 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
   + Windows
     + cmd: set FLASK_APP=app.py
     + Powershell: $env:FLASK_APP = "app.py"
++ Run setup file to install chrome driver
+  + Windows: py setup_windows.py
+  + Linux: python3 setup_linux.py
+  + Mac: python3 setup_mac.py
 + Run application
   + All environments: flask run
 + Hit the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a post, expecting 'url' in the form data)
