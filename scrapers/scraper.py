@@ -1,13 +1,16 @@
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 
 class Scraper():
 
     @staticmethod
     def get_reviews(url):
-        driver = webdriver.Firefox()
+        options = Options()
+        options.add_argument("--headless")
+        driver = webdriver.Chrome(chrome_options=options)
         driver.get(url)
         print(response)
         soup = BeautifulSoup(driver.page_source, "html5lib")
