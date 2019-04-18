@@ -12,7 +12,7 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
 + Navigate to project folder
 + Create venv
   + Unix: python3 -m venv venv
-  + Windows: py -3 m venv venv
+  + Windows: py -3 -m venv venv
 + Activate venv
   + Unix: . venv/bin/activate
   + Windows: venv\Scripts\activate
