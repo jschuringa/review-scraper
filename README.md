@@ -29,7 +29,7 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
   + Mac: python3 setup_mac.py
 + Run application
   + All environments: flask run
-+ Hit the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a post, expecting 'url' in the form data)
++ Use the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a get or post, expecting 'url' in the body as form data)
 
 ## Tests
 Tests are located in test folders under the folder the code being tested is located in. (for app.py, '/Review-Scraper/Tests/app-tests.py' etc)
