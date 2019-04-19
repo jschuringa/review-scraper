@@ -7,7 +7,7 @@ class TestAppCases(unittest.TestCase):
 
     def test_url_is_restaurant_page_succeeds(self):
         """
-            Ensures the endpoint succeeds when the url is a restaurant url
+            Asserts the endpoint succeeds when the url is a restaurant url
         """
         Scraper.get_scraper = MagicMock(return_value=Scraper([]))
         Scraper.get_reviews = MagicMock(return_value=[])
@@ -18,7 +18,7 @@ class TestAppCases(unittest.TestCase):
 
     def test_url_is_reviews_page_succeeds(self):
         """
-            Ensures the endpoint succeeds when the url is a restaurant review url
+            Asserts the endpoint succeeds when the url is a restaurant review url
         """
         Scraper.get_scraper = MagicMock(return_value=Scraper([]))
         Scraper.get_reviews = MagicMock(return_value=[])
@@ -29,7 +29,7 @@ class TestAppCases(unittest.TestCase):
 
     def test_url_is_not_restaurant_or_reviews_page_fails(self):
         """
-            Ensures the endpoint fails when the url is a not a restaurant or review url
+            Asserts the endpoint fails when the url is a not a restaurant or review url
         """
         with app.test_client() as client:
             sent = {"url": "www.google.com"}
@@ -38,7 +38,7 @@ class TestAppCases(unittest.TestCase):
 
     def test_url_not_in_post(self):
         """
-            Ensures the endpoint fails when the url is not posted
+            Asserts the endpoint fails when the url is not posted
         """
         with app.test_client() as client:
             sent = {}
@@ -47,7 +47,7 @@ class TestAppCases(unittest.TestCase):
 
     def test_happy_path(self):
         """
-            Ensures the endpoint returns a dictionary as json
+           Asserts the endpoint returns a dictionary as json
         """
         reviewMockData = {"author": "test"}
         Scraper.get_scraper = MagicMock(return_value=Scraper([]))
