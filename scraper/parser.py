@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, date
 import re
+
 class ReviewItem():
     def __init__(self, author, content, rating, date, top_reviewer, items_ordered, responded):
         self.author = author
@@ -20,11 +21,11 @@ class ReviewItem():
         except:
             pass
         number_expr = re.compile("([0-9]*)")
-        days_expr = re.compile("[0-9]\s(days)\s(ago)")
+        days_expr = re.compile("[0-9]\s(day(s)?)\s(ago)")
         if days_expr.match(content) is not None:
             days_past = int(number_expr.match(content)[0])
             return (datetime.today() - timedelta(days=days_past)).date()
-        weeks_expr = re.compile("[0-9]\s(weeks)\s(ago)")
+        weeks_expr = re.compile("[0-9]\s(week(s)?)\s(ago)")
         if weeks_expr.match(content) is not None:
             weeks_past = int(number_expr.match(content)[0])
             return (datetime.today() - timedelta(days=weeks_past * 7)).date()
