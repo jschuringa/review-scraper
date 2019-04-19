@@ -85,5 +85,9 @@ class TestParserMethods(unittest.TestCase):
         self.assertEquals(result, expected)
 
     def test_build_review_item_default(self):
+        
+    def test_build_review_item_top_reviewer(self):
+
+    def test_build_review_item_response(self:)
 
 
