@@ -5,6 +5,44 @@ from ..parser import ReviewItem
 
 class TestParserMethods(unittest.TestCase):
 
+    test_html_no_response_no_top_reviewer = r'''
+        <div>
+            <h6 class="review-reviewer-name">Test Name</h6>
+            <p itemprop="reviewBody">Test Content</p>
+            <meta itemprop="ratingValue" content="4" />
+            <span class="meta-label">May 10, 2018</span>
+            <div id="menuItems">
+                <div class="review-ordered-item-title">Test Food</div>
+            </div>
+        </div>
+    '''
+
+    test_html_with_response = r'''
+        <div>
+            <h6 class="review-reviewer-name">Test Name</h6>
+            <p itemprop="reviewBody">Test Content</p>
+            <meta itemprop="ratingValue" content="4" />
+            <span class="meta-label">May 10, 2018</span>
+            <div id="menuItems">
+                <div class="review-ordered-item-title">Test Food</div>
+            </div>
+            <div class="review-response-restaurant">test response</div>
+        </div>
+    '''
+
+    test_html_top_reviewer = r'''
+        <div>
+            <h6 class="review-reviewer-name">Test Name</h6>
+            <p itemprop="reviewBody">Test Content</p>
+            <meta itemprop="ratingValue" content="4" />
+            <span class="meta-label">May 10, 2018</span>
+            <div id="menuItems">
+                <div class="review-ordered-item-title">Test Food</div>
+            </div>
+            <cb-icon class="review-topReviewerBadge"/>
+        </div>
+    '''
+
     def test_parse_date_weeks(self):
         """
             Asserts that a date in the format of x weeks ago 
