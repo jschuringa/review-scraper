@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
-from .parser import ReviewItem
+from scraper.parser import ReviewItem
 
 
 class Scraper():
