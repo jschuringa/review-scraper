@@ -25,6 +25,7 @@ class Scraper():
         all_reviews_button = driver.find_element_by_id("allReviewsPage")
         if all_reviews_button is not None:
             all_reviews_button.click()
+            # sleeping is not my favorite solution but the page wasn't loading fast enough
             time.sleep(5)
         
         while True:
