@@ -1,11 +1,12 @@
 import unittest
 from datetime import datetime, timedelta, date
 from unittest.mock import MagicMock
+from bs4 import BeautifulSoup
 from ..parser import ReviewItem
 
 class TestParserMethods(unittest.TestCase):
 
-    test_html_no_response_no_top_reviewer = r'''
+    test_html_default = r'''
         <div>
             <h6 class="review-reviewer-name">Test Name</h6>
             <p itemprop="reviewBody">Test Content</p>
@@ -82,3 +83,7 @@ class TestParserMethods(unittest.TestCase):
         result = ReviewItem.parse_date(date)
         expected = (datetime.today() - timedelta(1)).date()
         self.assertEquals(result, expected)
+
+    def test_build_review_item_default(self):
+
+
