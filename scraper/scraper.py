@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import time
 from .parser import ReviewItem
 
 
@@ -21,6 +22,17 @@ class Scraper():
         driver = webdriver.Chrome(chrome_options=options)
         driver.get(url)
         driver.maximize_window()
+        all_reviews_button = driver.find_element_by_id("allReviewsPage")
+        if all_reviews_button is not None:
+            all_reviews_button.click()
+            time.sleep(5)
+        
+        while True:
+            try:
+                see_more_button = driver.find_element_by_xpath('//button[@at-allreviews-seemore="true"]')
+                see_more_button.click()
+            except:
+                break
         soup = BeautifulSoup(driver.page_source, "html5lib")
         driver.close()
         items = soup.findAll("div", {"class": "review-wrapper"})
