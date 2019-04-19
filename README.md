@@ -1,5 +1,5 @@
 # review-scraper
-A simple api end point to get reviews for a specified grubhug restaurant page.
+A simple api end point to get reviews for a specified grubhub restaurant page.
 
 ## Requirements
 + Python 3.7
