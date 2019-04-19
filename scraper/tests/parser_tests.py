@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, date
 from unittest.mock import MagicMock
 from bs4 import BeautifulSoup
 from ..parser import ReviewItem
-import test-constants
+from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
 
 class TestParserMethods(unittest.TestCase):
 
@@ -52,7 +52,7 @@ class TestParserMethods(unittest.TestCase):
             Asserts that the expected fields are parsed correctly
             with no response or top reviewer
         """
-        soup = BeautifulSoup(test-constants.test_html_default, "html5lib")
+        soup = BeautifulSoup(test_html_default, "html5lib")
         result = ReviewItem.build_review_item(soup)
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
@@ -67,7 +67,7 @@ class TestParserMethods(unittest.TestCase):
             Asserts that the expected fields are parsed correctly
             for a top reviewer
         """
-        soup = BeautifulSoup(test-constants.test_html_top_reviewer, "html5lib")
+        soup = BeautifulSoup(test_html_top_reviewer, "html5lib")
         result = ReviewItem.build_review_item(soup)
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
@@ -82,7 +82,7 @@ class TestParserMethods(unittest.TestCase):
             Asserts that the expected fields are parsed correctly
             with a response
         """
-        soup = BeautifulSoup(test-constants.test_html_with_response, "html5lib")
+        soup = BeautifulSoup(test_html_with_response, "html5lib")
         result = ReviewItem.build_review_item(soup)
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
@@ -97,6 +97,6 @@ class TestParserMethods(unittest.TestCase):
             Asserts that the constructor raises an exception
             when incorrectly formatted html is passed in
         """
-        soup = BeautifulSoup(test-constants.test_html_invalid, "html5lib")
+        soup = BeautifulSoup(test_html_invalid, "html5lib")
         self.assertRaises(AttributeError, ReviewItem.build_review_item, soup)
 
