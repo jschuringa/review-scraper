@@ -36,13 +36,22 @@ class TestAppCases(unittest.TestCase):
             result = client.post('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 400)
 
-    def test_url_not_in_post(self):
+    def test_url_not_in_form_data_post(self):
         """
-            Asserts the endpoint fails when the url is not posted
+            Asserts the endpoint fails when the url is not in the form data
         """
         with app.test_client() as client:
             sent = {}
             result = client.post('/scrape_reviews', data=sent)
+            self.assertEqual(result.status_code, 400)
+
+    def test_url_not_in_form_data_get(self):
+        """
+            Asserts the endpoint fails when the url is not in the form data
+        """
+        with app.test_client() as client:
+            sent = {}
+            result = client.get('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 400)
 
     def test_happy_path(self):
