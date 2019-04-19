@@ -20,15 +20,18 @@ class ReviewItem():
             return datetime.strptime(content, "%b %d, %Y").date()
         except:
             pass
+        if content == 'Yesterday':
+            return date.today() - timedelta(1)
+
         number_expr = re.compile("([0-9]*)")
         days_expr = re.compile("[0-9]\s(day(s)?)\s(ago)")
         if days_expr.match(content) is not None:
             days_past = int(number_expr.match(content)[0])
-            return (datetime.today() - timedelta(days=days_past)).date()
+            return date.today() - timedelta(days_past)
         weeks_expr = re.compile("[0-9]\s(week(s)?)\s(ago)")
         if weeks_expr.match(content) is not None:
-            weeks_past = int(number_expr.match(content)[0])
-            return (datetime.today() - timedelta(days=weeks_past * 7)).date()
+            days_past = int(number_expr.match(content)[0]) * 7
+            return date.today() - timedelta(days_past)
         return content
 
 
