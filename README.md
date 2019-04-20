@@ -30,6 +30,7 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
 + Run application
   + All environments: flask run
 + Use the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a get or post, expecting 'url' in the body as form data)
+  + curl -X POST -F 'url=https://www.grubhub.com/restaurant/burrito-king-408-e-green-st-champaign/262953' http://127.0.0.1:5000/scrape_reviews
 
 ## Tests
 Tests are located in test folders under the folder the code being tested is located in. (for app.py, '/Review-Scraper/Tests/app-tests.py' etc)
@@ -39,5 +40,9 @@ Should just need to run "nosetests" in any environment.
 ## Chromedriver
 In order to easily use selenium, I drop the chromedriver right next to the virtualenv python executable. While I tried to automate this as much as possible,
 if you're on a different version of chrome or the Linux/Mac setup scripts don't work, I wanted to provide the links to download the chrome driver.
-The main download page is here: http://chromedriver.chromium.org/downloads
-If on Linux or Mac, drop the extracted executable into the /venv/bin folder. If on Windows, into the venv/Scripts folder.
++ The main download page is here: http://chromedriver.chromium.org/downloads
++ If on Linux or Mac:
+  + Drop the extracted executable into the /venv/bin folder
+  + Run chmod 755 on the executable
++ If on Windows:
+  + Drop the extracted executable into the /venv/Scripts folder
