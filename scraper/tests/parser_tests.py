@@ -5,10 +5,8 @@ from bs4 import BeautifulSoup
 from scraper.parser import ReviewItem
 from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
 
-class DatetimeMock(datetime):
-    @classmethod
-    def strptime(cls, content, format):
-        raise IndexError()
+def raise_index_error(content, format):
+    raise IndexError()
 
 class TestParserMethods(unittest.TestCase):
 
@@ -72,12 +70,13 @@ class TestParserMethods(unittest.TestCase):
         expected = (datetime.today() - timedelta(1)).date()
         self.assertEqual(result, expected)
 
-    def test_parse_date_unexpected_exception(self):
+    @patch("scraper.parser.datetime")
+    def test_parse_date_unexpected_exception(self, datetime_mock):
         """
             Asserts that an unexpected error gets propagated through and not caught
             in the parse date method
         """
-        datetime = DatetimeMock(1, 2, 3)
+        datetime_mock.strptime = raise_index_error
         content = "anything"
         self.assertRaises(IndexError, ReviewItem.parse_date, content)
 
