@@ -56,6 +56,9 @@ class TestAppCases(unittest.TestCase):
 
     @patch("scraper.scraper.Scraper.get_reviews")
     def test_scraper_errors(self, scraper_mock):
+        """
+            Asserts internal server error captured and returned
+        """
         scraper_mock.side_effect = KeyError()
         with app.test_client() as client:
             sent = {"url": "https://www.grubhub.com/restaurant/hashbrowns-on-wells-1155-n-wells-st-chicago/287727/reviews"}

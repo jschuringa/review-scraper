@@ -13,5 +13,6 @@ if not os.path.isfile(file_path):
     zip_ref.extractall(os.path.join(dirname, 'venv/bin'))
     zip_ref.close()
     os.remove(file_path)
+    os.chmod(path + '/chromedriver.exe', 0755)
 else:
     print("Chrome driver already exists in virtual environment.")
