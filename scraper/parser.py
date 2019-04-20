@@ -18,7 +18,7 @@ class ReviewItem():
         """
         try:
             return datetime.strptime(content, "%b %d, %Y").date()
-        except:
+        except ValueError:
             pass
         if content == 'Yesterday':
             return date.today() - timedelta(1)
