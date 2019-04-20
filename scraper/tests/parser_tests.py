@@ -12,13 +12,23 @@ class DatetimeMock(datetime):
 
 class TestParserMethods(unittest.TestCase):
 
+    def test_parse_date_today(self):
+        """
+            Asserts that a date in the format of Today
+            is succesfully parsed
+        """
+        content = "Today"
+        result = ReviewItem.parse_date(content)
+        expected = date.today()
+        self.assertEqual(result, expected)
+
     def test_parse_date_yesterday(self):
         """
             Asserts that a date in the format of Yesterday
             is succesfully parsed
         """
-        date = "Yesterday"
-        result = ReviewItem.parse_date(date)
+        content = "Yesterday"
+        result = ReviewItem.parse_date(content)
         expected = (datetime.today() - timedelta(1)).date()
         self.assertEqual(result, expected)
 
@@ -27,8 +37,8 @@ class TestParserMethods(unittest.TestCase):
             Asserts that a date in the format of x weeks ago 
             is succesfully parsed
         """
-        date = "2 weeks ago"
-        result = ReviewItem.parse_date(date)
+        content = "2 weeks ago"
+        result = ReviewItem.parse_date(content)
         expected = (datetime.today() - timedelta(14)).date()
         self.assertEqual(result, expected)
 
@@ -37,8 +47,8 @@ class TestParserMethods(unittest.TestCase):
             Asserts that a date in the format of x week ago 
             is succesfully parsed
         """
-        date = "1 week ago"
-        result = ReviewItem.parse_date(date)
+        content = "1 week ago"
+        result = ReviewItem.parse_date(content)
         expected = (datetime.today() - timedelta(7)).date()
         self.assertEqual(result, expected)
 
@@ -47,8 +57,8 @@ class TestParserMethods(unittest.TestCase):
             Asserts that a date in the format of x days ago 
             is succesfully parsed
         """
-        date = "2 days ago"
-        result = ReviewItem.parse_date(date)
+        content = "2 days ago"
+        result = ReviewItem.parse_date(content)
         expected = (datetime.today() - timedelta(2)).date()
         self.assertEqual(result, expected)
 
@@ -57,8 +67,8 @@ class TestParserMethods(unittest.TestCase):
             Asserts that a date in the format of x day ago 
             is succesfully parsed
         """
-        date = "1 day ago"
-        result = ReviewItem.parse_date(date)
+        content = "1 day ago"
+        result = ReviewItem.parse_date(content)
         expected = (datetime.today() - timedelta(1)).date()
         self.assertEqual(result, expected)
 
@@ -68,8 +78,8 @@ class TestParserMethods(unittest.TestCase):
             in the parse date method
         """
         datetime = DatetimeMock(1, 2, 3)
-        date = "anything"
-        self.assertRaises(IndexError, ReviewItem.parse_date, date)
+        content = "anything"
+        self.assertRaises(IndexError, ReviewItem.parse_date, content)
 
     def test_build_review_item_default(self):
         """

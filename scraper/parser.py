@@ -20,9 +20,10 @@ class ReviewItem():
             return datetime.strptime(content, "%b %d, %Y").date()
         except ValueError:
             pass
+        if content == 'Today':
+            return date.today()
         if content == 'Yesterday':
             return date.today() - timedelta(1)
-
         number_expr = re.compile("([0-9]*)")
         days_expr = re.compile("[0-9]\s(day(s)?)\s(ago)")
         if days_expr.match(content) is not None:
