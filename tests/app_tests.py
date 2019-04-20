@@ -45,15 +45,6 @@ class TestAppCases(unittest.TestCase):
             result = client.post('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 400)
 
-    def test_url_not_in_form_data_get(self):
-        """
-            Asserts the endpoint fails when the url is not in the form data
-        """
-        with app.test_client() as client:
-            sent = {}
-            result = client.get('/scrape_reviews', data=sent)
-            self.assertEqual(result.status_code, 400)
-
     @patch("scraper.scraper.Scraper.get_reviews")
     def test_scraper_errors(self, scraper_mock):
         """

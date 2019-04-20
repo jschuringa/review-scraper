@@ -29,7 +29,7 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
   + Mac: python3 setup_mac.py
 + Run application
   + All environments: flask run
-+ Use the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a get or post, expecting 'url' in the body as form data)
++ Use the endpoint: http://127.0.0.1:5000/scrape_reviews (accepts a post, expecting 'url' in the body as form data)
   + curl -X POST -F 'url=https://www.grubhub.com/restaurant/burrito-king-408-e-green-st-champaign/262953' http://127.0.0.1:5000/scrape_reviews
 
 ## Tests

@@ -6,7 +6,7 @@ from scraper.scraper import Scraper
 
 app = Flask(__name__)
 
-@app.route("/scrape_reviews", methods=['GET', 'POST'])
+@app.route("/scrape_reviews", methods=['POST'])
 def get_reviews():
     url = request.form['url']
     if url is None:
