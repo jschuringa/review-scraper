@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timedelta, date
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from bs4 import BeautifulSoup
 from scraper.parser import ReviewItem
 from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
@@ -56,6 +56,16 @@ class TestParserMethods(unittest.TestCase):
         result = ReviewItem.parse_date(date)
         expected = (datetime.today() - timedelta(1)).date()
         self.assertEqual(result, expected)
+
+    # @patch("datetime.datetime.strptime")
+    # def test_parse_date_unexpected_exception(self, datetime_mock):
+    #     """
+    #         Asserts that an unexpected error gets propagated through and not caught
+    #         in the parse date method
+    #     """
+    #     datetime_mock.side_effect = IndexError()
+    #     date = "anything"
+    #     self.assertRaises(IndexError, ReviewItem.parse_date, date, "format")
 
     def test_build_review_item_default(self):
         """

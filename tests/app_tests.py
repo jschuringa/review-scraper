@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from app import app
 from scraper.scraper import Scraper
 
@@ -53,6 +53,14 @@ class TestAppCases(unittest.TestCase):
             sent = {}
             result = client.get('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 400)
+
+    @patch("scraper.scraper.Scraper.get_reviews")
+    def test_scraper_errors(self, scraper_mock):
+        scraper_mock.side_effect = KeyError()
+        with app.test_client() as client:
+            sent = {"url": "https://www.grubhub.com/restaurant/hashbrowns-on-wells-1155-n-wells-st-chicago/287727/reviews"}
+            result = client.post('/scrape_reviews', data=sent)
+            self.assertEqual(result.status_code, 500)
 
     def test_happy_path(self):
         """
