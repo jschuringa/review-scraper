@@ -1,12 +1,19 @@
+"""
+    Contains classes related to parsing review data from soups
+"""
+
 from datetime import datetime, timedelta, date
 import re
 
 class ReviewItem():
-    def __init__(self, author, content, rating, date, top_reviewer, items_ordered, responded):
+    """
+        Contains methods allowing seraliazation of review soups
+    """
+    def __init__(self, author, content, rating, review_date, top_reviewer, items_ordered, responded):
         self.author = author
         self.content = content
         self.rating = rating
-        self.date = date
+        self.review_date = review_date
         self.top_reviewer = top_reviewer
         self.items_ordered = items_ordered
         self.responded = responded
@@ -24,12 +31,12 @@ class ReviewItem():
             return date.today()
         if content == 'Yesterday':
             return date.today() - timedelta(1)
-        number_expr = re.compile("([0-9]*)")
-        days_expr = re.compile("[0-9]\s(day(s)?)\s(ago)")
+        number_expr = re.compile(r"([0-9]*)")
+        days_expr = re.compile(r"[0-9]\s(day(s)?)\s(ago)")
         if days_expr.match(content) is not None:
             days_past = int(number_expr.match(content)[0])
             return date.today() - timedelta(days_past)
-        weeks_expr = re.compile("[0-9]\s(week(s)?)\s(ago)")
+        weeks_expr = re.compile(r"[0-9]\s(week(s)?)\s(ago)")
         if weeks_expr.match(content) is not None:
             days_past = int(number_expr.match(content)[0]) * 7
             return date.today() - timedelta(days_past)
@@ -44,10 +51,10 @@ class ReviewItem():
         author = html_item.find("h6", {"class": "review-reviewer-name"}).contents[0]
         content = html_item.find("p", {"itemprop": "reviewBody"}).contents[0]
         rating = int(html_item.find("meta", {"itemprop": "ratingValue"})["content"])
-        date = ReviewItem.parse_date(html_item.find("span", {"class": "meta-label"}).contents[0])
+        review_date = ReviewItem.parse_date(html_item.find("span", {"class": "meta-label"}).contents[0])
         top_reviewer = html_item.find("cb-icon", {"class": "review-topReviewerBadge"}) is not None
         responded = html_item.find("div", {"class": "review-response-restaurant"}) is not None
         items_ordered = []
         for menu_item in html_item.findAll("div", {"class": "review-ordered-item-title"}):
             items_ordered.append(menu_item.contents[0])
-        return ReviewItem(author, content, rating, date, top_reviewer, items_ordered, responded)
+        return ReviewItem(author, content, rating, review_date, top_reviewer, items_ordered, responded)

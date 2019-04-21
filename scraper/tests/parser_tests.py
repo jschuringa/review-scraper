@@ -1,3 +1,7 @@
+"""
+    Provides tests and test infrastructure for the parser class
+"""
+
 import unittest
 from datetime import datetime, timedelta, date
 from unittest.mock import MagicMock, patch
@@ -6,9 +10,15 @@ from scraper.parser import ReviewItem
 from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
 
 def raise_index_error(content, format):
+    """
+        Raises an index error (used for testing error handling)
+    """
     raise IndexError()
 
 class TestParserMethods(unittest.TestCase):
+    """
+        Tests methods in the parser module
+    """
 
     def test_parse_date_today(self):
         """
@@ -90,7 +100,7 @@ class TestParserMethods(unittest.TestCase):
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
         self.assertEqual(result.rating, 4)
-        self.assertTrue(isinstance(result.date, date))
+        self.assertTrue(isinstance(result.review_date, date))
         self.assertFalse(result.responded)
         self.assertFalse(result.top_reviewer)
         self.assertEqual(len(result.items_ordered), 1)
@@ -105,7 +115,7 @@ class TestParserMethods(unittest.TestCase):
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
         self.assertEqual(result.rating, 4)
-        self.assertTrue(isinstance(result.date, date))
+        self.assertTrue(isinstance(result.review_date, date))
         self.assertFalse(result.responded)
         self.assertTrue(result.top_reviewer)
         self.assertEqual(len(result.items_ordered), 1)
@@ -120,7 +130,7 @@ class TestParserMethods(unittest.TestCase):
         self.assertEqual(result.author, "Test Name")
         self.assertEqual(result.content, "Test Content")
         self.assertEqual(result.rating, 4)
-        self.assertTrue(isinstance(result.date, date))
+        self.assertTrue(isinstance(result.review_date, date))
         self.assertTrue(result.responded)
         self.assertFalse(result.top_reviewer)
         self.assertEqual(len(result.items_ordered), 1)
