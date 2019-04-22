@@ -7,7 +7,7 @@ A simple api end point to get reviews for a specified grubhub restaurant page.
 + pip (should come with 3.7 by default)
 
 ## Setup
-Disclaimer: I develop in a windows environment, so the unix commands come straight from the flask installation/quickstart guide. I tested them using the linux shell in vs code, so they should work. HOWEVER I wasn't able to test the setups for Linux and Mac. In the worst case, see the links at the bottom to download the chrome drivers without using the setup files.
+I develop in a windows environment, so the unix commands come straight from the flask installation/quickstart guide. I tested them using the linux shell in vs code, so they should work. HOWEVER I wasn't able to test the setups for Linux and Mac. In the worst case, see the links at the bottom to download the chrome drivers without using the setup files.
 
 + Navigate to project folder
 + Create virtual environment (please use venv so the chromedriver is in the correct place)
@@ -35,7 +35,7 @@ Disclaimer: I develop in a windows environment, so the unix commands come straig
 ## Tests
 Tests are located in test folders under the folder the code being tested is located in. (for app.py, '/Review-Scraper/Tests/app-tests.py' etc)
 I used nosetest to run them, which should be installed from the requirements.txt
-Should just need to run "nosetests" in any environment.
++ Any environment, in the root project folder: nosetests
 
 ## Chromedriver
 In order to easily use selenium, I drop the chromedriver right next to the virtualenv python executable. While I tried to automate this as much as possible,
@@ -46,3 +46,5 @@ if you're on a different version of chrome or the Linux/Mac setup scripts don't 
   + Run chmod 755 on the executable
 + If on Windows:
   + Drop the extracted executable into the /venv/Scripts folder
++ Alternatively, you can install the chrome driver wherever and set the environment path (may still have to run chmod on the executable)
++ + See: http://chromedriver.chromium.org/getting-started
