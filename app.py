@@ -21,9 +21,8 @@ def get_reviews():
         return APP.response_class(status=400, mimetype='applicaton/json', response=json.dumps(data))
     parsed_url = urlparse(url)
     main_page_expr = re.compile(r'\/(restaurant)\/(.*)\/([0-9]*)')
-    review_page_expr = re.compile(r'\/(restaurant)\/(.*)\/([0-9]*)\/reviews')
-    if parsed_url.netloc != "www.grubhub.com" or (main_page_expr.match(parsed_url.path) is None and review_page_expr.match(parsed_url.path) is None):
-        data = {"success": False, "message": "Must be a grubhub restaurant or restaurant review page."}
+    if parsed_url.netloc != "www.grubhub.com" or main_page_expr.match(parsed_url.path) is None:
+        data = {"success": False, "message": "Must be a grubhub restaurant page."}
         return APP.response_class(status=400, mimetype='applicaton/json', response=json.dumps(data))
     try:
         scraper = Scraper.get_scraper(url)

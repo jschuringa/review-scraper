@@ -6,7 +6,8 @@ import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.support import ui
 from scraper.parser import ReviewItem
 
 class Scraper():
@@ -28,18 +29,27 @@ class Scraper():
         options.add_argument(f'user-agent={user_agent}')
         driver = webdriver.Chrome(chrome_options=options)
         driver.get(url)
+        wait = ui.WebDriverWait(driver, 5)
         driver.maximize_window()
-        all_reviews_button = driver.find_element_by_id("allReviewsPage")
-        if all_reviews_button is not None:
-            all_reviews_button.click()
-            # sleeping is not my favorite solution but the page wasn't loading fast enough
-            time.sleep(5)
-        while True:
-            try:
-                see_more_button = driver.find_element_by_xpath('//button[@at-allreviews-seemore="true"]')
-                see_more_button.click()
-            except NoSuchElementException:
-                break
+        try:
+            wait.until(lambda driver: driver.find_element_by_id("allReviewsPage"))
+            driver.find_element_by_id("allReviewsPage").click()
+            wait.until(lambda driver: driver.find_element_by_xpath('//button[@at-allreviews-seemore="true"]'))
+            while True:
+                try:
+                    see_more_button = driver.find_element_by_xpath('//button[@at-allreviews-seemore="true"]')
+                    see_more_button.click()
+                except NoSuchElementException:
+                    # This exception will eventually be triggered once the page is done handling loading all the reviews
+                    # as the Load More button will stop rendering.
+                    break
+        except TimeoutException:
+            # This exception will be triggered either when the restaurant page has too few reviews for a reviews page, or the reviews page we
+            # navigated to doesn't need to have the all reviews button clicked immediately after navigating to it
+            pass
+        except:
+            driver.close()
+        
         soup = BeautifulSoup(driver.page_source, "html5lib")
         driver.close()
         items = soup.findAll("div", {"class": "review-wrapper"})

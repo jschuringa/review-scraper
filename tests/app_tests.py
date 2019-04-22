@@ -23,18 +23,7 @@ class TestAppCases(unittest.TestCase):
             result = client.post('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 200)
 
-    def test_url_is_reviews_page_succeeds(self):
-        """
-            Asserts the endpoint succeeds when the url is a restaurant review url
-        """
-        Scraper.get_scraper = MagicMock(return_value=Scraper([]))
-        Scraper.get_reviews = MagicMock(return_value=[])
-        with APP.test_client() as client:
-            sent = {"url": "https://www.grubhub.com/restaurant/hashbrowns-on-wells-1155-n-wells-st-chicago/287727/reviews"}
-            result = client.post('/scrape_reviews', data=sent)
-            self.assertEqual(result.status_code, 200)
-
-    def test_url_is_not_restaurant_or_reviews_page_fails(self):
+    def test_url_is_not_restaurant_page_fails(self):
         """
             Asserts the endpoint fails when the url is a not a restaurant or review url
         """
@@ -59,7 +48,7 @@ class TestAppCases(unittest.TestCase):
         """
         scraper_mock.side_effect = KeyError()
         with APP.test_client() as client:
-            sent = {"url": "https://www.grubhub.com/restaurant/hashbrowns-on-wells-1155-n-wells-st-chicago/287727/reviews"}
+            sent = {"url": "https://www.grubhub.com/restaurant/hashbrowns-on-wells-1155-n-wells-st-chicago/287727"}
             result = client.post('/scrape_reviews', data=sent)
             self.assertEqual(result.status_code, 500)
 
