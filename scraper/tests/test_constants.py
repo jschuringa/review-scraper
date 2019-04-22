@@ -1,3 +1,9 @@
+def raise_index_error(*args):
+    """
+        Raises an index error (used for testing error handling)
+    """
+    raise IndexError()
+
 test_html_default = r'''
     <div>
         <h6 class="review-reviewer-name">Test Name</h6>

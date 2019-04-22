@@ -7,13 +7,7 @@ from datetime import datetime, timedelta, date
 from unittest.mock import MagicMock, patch
 from bs4 import BeautifulSoup
 from scraper.parser import ReviewItem
-from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
-
-def raise_index_error(content, format):
-    """
-        Raises an index error (used for testing error handling)
-    """
-    raise IndexError()
+from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid, raise_index_error
 
 class TestParserMethods(unittest.TestCase):
     """

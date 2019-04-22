@@ -7,7 +7,6 @@ from unittest.mock import Mock, patch
 from datetime import date, timedelta
 from scraper import scraper
 from scraper import parser
-from .test_constants import test_html_default, test_html_with_response, test_html_top_reviewer, test_html_invalid
 
 class TestScraperMethods(unittest.TestCase):
     """

@@ -20,7 +20,7 @@ class Scraper():
     @staticmethod
     def get_scraper(url):
         """
-        Builds a new grubhub scraper scraper object by getting the html for review items. Initializes a full window version of the chrome driver
+        Builds a new grubhub scraper object by getting the html for review items. Initializes a full window version of the chrome driver
         to avoid bot detection on grubhub.
         """
         options = Options()
