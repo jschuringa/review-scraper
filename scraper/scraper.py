@@ -2,7 +2,6 @@
     This module contains the logic for accessing a web page with selenium and building a scraper class based off of it.
 """
 
-import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -49,7 +48,7 @@ class Scraper():
             pass
         except:
             driver.close()
-        
+            raise
         soup = BeautifulSoup(driver.page_source, "html5lib")
         driver.close()
         items = soup.findAll("div", {"class": "review-wrapper"})
